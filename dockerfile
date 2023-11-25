@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y git
 RUN git clone https://github.com/Davlopez06/StarWars.git
 
 # Establece el directorio de trabajo en la carpeta de la aplicación de Reac
-COPY front/package*.json ./
+WORKDIR /app/front
+
+COPY package*.json ./
 
 # Instala las dependencias de la aplicación
 RUN npm install --force
