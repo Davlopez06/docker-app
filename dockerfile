@@ -1,25 +1,23 @@
-# Etapa de construcción
-FROM node:16 as build
+# Usa la imagen oficial de Node.js 16 como base
+FROM node:16
 
+# Establece el directorio de trabajo en /app
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y git
+# Copia los archivos package.json y package-lock.json al directorio de trabajo
+COPY front/package*.json ./
 
-# Clonar el repositorio de GitHub
-RUN git clone https://github.com/Davlopez06/StarWars.git .
-
-# Cambiar al directorio 'front' donde está el package.json
-WORKDIR /app/front
-
-# Instalar dependencias y construir la aplicación
+# Instala las dependencias de la aplicación
 RUN npm install --legacy-peer-deps
+
+# Copia el resto de los archivos de la aplicación al directorio de trabajo
+COPY front/ .
+
+# Construye la aplicación (puedes ajustar esto según sea necesario)
 RUN npm run build
 
-# Etapa de producción
-FROM nginx:alpine
+# Expone el puerto en el que la aplicación se ejecutará
+EXPOSE 3000
 
-COPY --from=build /app/front/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Comando para ejecutar la aplicación (ajústalo según cómo inicies tu aplicación)
+CMD ["npm", "start"]
