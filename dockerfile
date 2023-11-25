@@ -26,7 +26,7 @@ RUN python3 -m virtualenv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install project dependencies (if any)
-RUN pip3 install -r requirements.txt  # Modify this according to your project setup
+RUN pip3 install -r package.json  # Modify this according to your project setup
 
 # Set the entry point or default command
 ENTRYPOINT [ "/opt/labfinal/venv/bin/python3" , "server.py" ]
