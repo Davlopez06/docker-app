@@ -13,11 +13,8 @@ RUN git clone https://github.com/Davlopez06/StarWars.git
 # Establece el directorio de trabajo en la carpeta de la aplicación de React
 WORKDIR /app/front
 
-# Copia los archivos package.json y package-lock.json al directorio de trabajo
-COPY package*.json ./
-
 # Instala las dependencias de la aplicación
-RUN npm install --legacy-peer-deps
+RUN npm install --force
 
 # Copia el resto de los archivos de la aplicación al directorio de trabajo
 COPY . .
